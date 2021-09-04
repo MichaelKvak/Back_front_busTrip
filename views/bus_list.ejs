@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>
+    <%= title %>
+  </title>
+  <link rel="stylesheet" href="/stylesheets/style.css" />
+</head>
+
+<body>
+  <h1>Buses list <%=list.length%>
+  </h1>
+  <div>
+    <ol>
+      <%for(let bus of list){%>
+        <li>
+          <%=bus.destination%>
+            <%=bus.depart%>
+              <%=bus.depart%>
+                <%=bus.price%>
+        </li>
+        <%}%>
+    </ol>
+  </div>
+</body>
+
+</html>

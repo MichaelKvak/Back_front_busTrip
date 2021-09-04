@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>
+        <%= title %>
+    </title>
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+</head>
+
+<body>
+    <h1>Add new task</h1>
+    <div>
+        <form action="/buses/add" method="post">
+            <label>
+                Bus Destination
+                <input type="text" name="busDestination" />
+            </label>
+            <br />
+            <label>
+                Bus Depart
+                <input type="text" name="busDepart" />
+            </label>
+            <br />
+            <label>
+                Bus trip duration
+                <input type="number" name="busDuration" />
+            </label>
+            <br />
+            <label>
+                Bus ticket price
+                <input type="number" name="busPrice" />
+            </label>
+            <br />
+            <input type="submit" value="Add new bus trip" />
+        </form>
+    </div>
+</body>
+
+</html>
