@@ -15,11 +15,12 @@
     <ol>
       <%for(let bus of list){%>
         <li>
-          <%=bus.destination%>
-            <%=bus.depart%>
-              <%=bus.depart%>
-                <%=bus.price%>
+          Destination station - <%=bus.destination%> <br>
+            Bus Depart - <%=bus.depart%> <br>
+              Bus trip duration - <%=bus.duration%> <br>
+                Bus ticket price - <%=bus.price%>
         </li>
+
         <%}%>
     </ol>
   </div>

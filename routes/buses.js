@@ -9,10 +9,10 @@ mongoose.connect("mongodb://localhost:27017/bus_db", {
 
 const Schema = mongoose.Schema;
 const busesScheme = new Schema({
-  destination_station: String,
-  depart_station: String,
-  duration_trip: Number,
-  ticket_price: Number,
+  destination: String,
+  depart: String,
+  duration: Number,
+  price: Number,
 });
 
 const Bus = mongoose.model("Bus", busesScheme);
@@ -41,7 +41,7 @@ router.post("/add", function (req, res, next) {
   });
   bus.save(function (err, busDoc) {
     if (err) return res.status(500).json({ err: { msg: "Saving failed!" } });
-    res.status(200).json({ success: true, busId: busDoc._id });
+    res.redirect("/buses");
   });
 });
 module.exports = router;
