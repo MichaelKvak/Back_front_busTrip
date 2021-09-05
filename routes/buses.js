@@ -17,21 +17,16 @@ const busesScheme = new Schema({
 
 const Bus = mongoose.model("Bus", busesScheme);
 
-/* GET home page. */
 router.get("/", function (req, res, next) {
   Bus.find({}, function (err, docs) {
-    if (err) return res.status(500).json({ err: { msg: "Fetch failed!" } });
-    res.render("bus_list", {
-      title: "Bus List",
-      list: docs,
-    });
+    if (err)
+      return res
+        .status(500)
+        .json({ success: false, err: { msg: "Fetch failed!" } });
+    res.status(200).json({ success: true, data: docs });
   });
 });
-router.get("/add", function (req, res, next) {
-  res.render("bus_add_form", {
-    title: "add bus",
-  });
-});
+
 router.post("/add", function (req, res, next) {
   const bus = new Bus({
     destination: req.body.busDestination,
@@ -40,8 +35,51 @@ router.post("/add", function (req, res, next) {
     price: parseInt(req.body.busPrice),
   });
   bus.save(function (err, busDoc) {
-    if (err) return res.status(500).json({ err: { msg: "Saving failed!" } });
-    res.redirect("/buses");
+    if (err)
+      return res
+        .status(500)
+        .json({ success: false, err: { msg: "Saving failed!" } });
+    res.status(200).json({ success: true, busId: busDoc._id });
   });
 });
+
+router.delete("/", function (req, res, next) {
+  Bus.findByIdAndDelete(req.body.busId, function (err, doc) {
+    if (err)
+      return res
+        .status(500)
+        .json({ success: false, err: { msg: "Delete failed!" } });
+    res.status(200).json({ success: true });
+  });
+});
+
+router.get("/:busId", function (req, res, next) {
+  Bus.findById(req.params["busId"], function (err, doc) {
+    if (err)
+      return res
+        .status(500)
+        .json({ success: false, err: { msg: "Fetch failed!" } });
+    res.status(200).json({ success: true, data: doc });
+  });
+});
+
+router.put("/update", function (req, res, next) {
+  Bus.findByIdAndUpdate(
+    req.body.busId,
+    {
+      destination: req.body.busDestination,
+      depart: req.body.busDepart,
+      duration: parseInt(req.body.busDuration),
+      price: parseInt(req.body.busPrice),
+    },
+    function (err, busDoc) {
+      if (err)
+        return res
+          .status(500)
+          .json({ success: false, err: { msg: "Saving failed!" } });
+      res.status(200).json({ success: true });
+    }
+  );
+});
+
 module.exports = router;
